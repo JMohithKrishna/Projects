@@ -1,0 +1,31 @@
+import numpy as np
+import cv2
+
+# read input
+img = cv2.imread("sudoku.jpg")
+
+# specify desired output size
+width = 350
+height = 350
+
+# specify conjugate x,y coordinates (not y,x)
+input = np.float32([[62, 71], [418, 59], [442, 443], [29, 438]])
+output = np.float32([[0, 0], [width - 1, 0], [width - 1, height - 1], [0, height - 1]])
+
+# compute perspective matrix
+matrix = cv2.getPerspectiveTransform(input, output)
+
+print(matrix.shape)
+print(matrix)
+
+# do perspective transformation setting area outside input to black
+imgOutput = cv2.warpPerspective(img, matrix, (width, height), borderMode=cv2.BORDER_CONSTANT)
+print(imgOutput.shape)
+
+# save the warped output
+cv2.imwrite("sudoku_warped.jpg", imgOutput)
+
+# show the result
+cv2.imshow("result", imgOutput)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
