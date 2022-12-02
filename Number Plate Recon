@@ -1,0 +1,10 @@
+import matplotlib.image as plt
+import os
+
+for img in os.listdir(r"C:\Users\user\PycharmProjects\Number Plate Recon\plate.png"):
+    test_NP = plt.imread("plate.png")
+
+plt.imshow(test_NP)
+plt.axis('off')
+plt.title('W5KHN license plate')
+plt.show()
